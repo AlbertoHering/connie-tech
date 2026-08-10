@@ -1,0 +1,1 @@
+Place royalty‑free or owned images here. Recommended topics: telecommunications towers, structured cabling, racks, data halls, equipment close-ups. Prefer AVIF/WebP for performance.

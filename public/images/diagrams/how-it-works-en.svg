@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280" height="220" viewBox="0 0 1280 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">How It Works — Connietech (English)</title>
+  <desc id="desc">Six-step horizontal timeline: You Tell Us, We Design, We Source Globally, We Negotiate, You Buy, You Execute.</desc>
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#0052CC"/>
+      <stop offset="0.6" stop-color="#10B981"/>
+      <stop offset="1" stop-color="#FF6B35"/>
+    </linearGradient>
+    <style><![CDATA[
+      .label{font:600 14px Inter,Arial,Helvetica,sans-serif; fill:#1F2937}
+      .sub{font:400 12px Inter,Arial,Helvetica,sans-serif; fill:#6B7280}
+    ]]></style>
+  </defs>
+  <!-- line -->
+  <rect x="60" y="110" width="1160" height="4" rx="2" fill="url(#g)" opacity="0.45"/>
+  <!-- steps -->
+  <g transform="translate(80,60)">
+    <circle cx="0" cy="50" r="16" fill="#0052CC"/>
+    <text class="label" x="-30" y="0">You Tell Us</text>
+    <text class="sub" x="-55" y="18">Specs • Budget • Timeline</text>
+  </g>
+  <g transform="translate(304,60)">
+    <circle cx="0" cy="50" r="16" fill="#0EA5E9"/>
+    <text class="label" x="-30" y="0">We Design</text>
+    <text class="sub" x="-50" y="18">Right BOM • Options</text>
+  </g>
+  <g transform="translate(528,60)">
+    <circle cx="0" cy="50" r="16" fill="#10B981"/>
+    <text class="label" x="-56" y="0">We Source Globally</text>
+    <text class="sub" x="-78" y="18">USA • LATAM • China</text>
+  </g>
+  <g transform="translate(752,60)">
+    <circle cx="0" cy="50" r="16" fill="#F59E0B"/>
+    <text class="label" x="-38" y="0">We Negotiate</text>
+    <text class="sub" x="-88" y="18">Pricing • Terms • Delivery</text>
+  </g>
+  <g transform="translate(976,60)">
+    <circle cx="0" cy="50" r="16" fill="#6366F1"/>
+    <text class="label" x="-22" y="0">You Buy</text>
+    <text class="sub" x="-92" y="18">From us or recommended</text>
+  </g>
+  <g transform="translate(1200,60)">
+    <circle cx="0" cy="50" r="16" fill="#FF6B35"/>
+    <text class="label" x="-30" y="0">You Execute</text>
+    <text class="sub" x="-82" y="18">Install • We support</text>
+  </g>
+</svg>

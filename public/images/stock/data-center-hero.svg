@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder — Data Center Hero</title>
+  <desc id="desc">Drop your hero image here. Replace this file with a real photo (AVIF/WebP/JPG).</desc>
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#0052CC"/>
+      <stop offset="0.6" stop-color="#10B981"/>
+      <stop offset="1" stop-color="#FF6B35"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#F3F4F6"/>
+  <rect x="80" y="200" width="1440" height="500" rx="24" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="800" y="430" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="800" fill="#1F2937">DATA CENTER HERO — PLACEHOLDER</text>
+  <text x="800" y="470" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" fill="#6B7280">Replace with self‑hosted image: /images/stock/data-center-hero.avif (preferred)</text>
+  <rect x="80" y="740" width="1440" height="8" rx="4" fill="url(#g)"/>
+</svg>

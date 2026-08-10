@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-gradient: linear-gradient(135deg, #0052CC, #10B981, #FF6B35);
+}
+
+html { scroll-behavior: smooth; }
+
+.brand-gradient { background: var(--brand-gradient); }

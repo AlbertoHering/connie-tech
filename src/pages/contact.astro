@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+const title = 'Contact — Connietech';
+const description = 'Tell us about your project. We’ll review and reply within 24 hours.';
+const phone = '+1 (305) 123‑4567';
+const email = 'connie@connietech.com';
+const defaultMsg = 'Hi Connietech, I’d like to discuss a project.';
+const wa = `https://wa.me/13051234567?text=${encodeURIComponent(defaultMsg)}`;
+const endpoint = import.meta.env.PUBLIC_FORMS_ENDPOINT || '';
+---
+<Base lang="en" title={title} description={description} url="https://connietech.com/contact">
+  <Header lang="en" />
+  <main>
+    <section id="call" class="brand-gradient text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 class="text-3xl sm:text-4xl font-black">Let’s talk</h1>
+        <p class="mt-2 text-white/90">We’ll review and reply within 24 hours.</p>
+        <div class="mt-4 flex flex-wrap items-center gap-4 text-sm">
+          <a href={`tel:${phone.replace(/[^\d+\-() ]/g,'')}`} class="underline">{phone}</a>
+          <span class="hidden sm:inline">•</span>
+          <a href={`mailto:${email}`} class="underline">{email}</a>
+          <span class="hidden sm:inline">•</span>
+          <a href={wa} target="_blank" class="underline">WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="project" class="py-16 bg-gray-50">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-xl ring-1 ring-gray-200 p-6 sm:p-8">
+          <h2 class="text-2xl font-black">Describe Your Project</h2>
+          <p class="text-sm text-gray-600 mt-1">Tell us about your project</p>
+
+          <form id="leadForm" class="mt-6" aria-describedby="postSubmit" data-endpoint={endpoint}>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div><label for="name" class="block text-sm font-medium">Name</label><input id="name" name="name" type="text" required class="mt-1 w-full rounded-md border border-gray-300 focus:border-brand-blue focus:ring-brand-blue" /></div>
+              <div><label for="company" class="block text-sm font-medium">Company</label><input id="company" name="company" type="text" class="mt-1 w-full rounded-md border border-gray-300 focus:border-brand-blue focus:ring-brand-blue" /></div>
+              <div><label for="email" class="block text-sm font-medium">Email</label><input id="email" name="email" type="email" required class="mt-1 w-full rounded-md border border-gray-300 focus:border-brand-blue focus:ring-brand-blue" /></div>
+              <div><label for="phone" class="block text-sm font-medium">Phone</label><input id="phone" name="phone" type="tel" class="mt-1 w-full rounded-md border border-gray-300 focus:border-brand-blue focus:ring-brand-blue" /></div>
+              <div><label for="type" class="block text-sm font-medium">Project Type</label><select id="type" name="type" class="mt-1 w-full rounded-md border border-gray-300 focus:border-brand-blue focus:ring-brand-blue"><option>Data Center</option><option>Cabling</option><option>Power</option><option>CCTV</option><option>Networking</option><option>Mixed</option></select></div>
+              <div><label for="budget" class="block text-sm font-medium">Scope/Budget</label><select id="budget" name="budget" class="mt-1 w-full rounded-md border border-gray-300 focus:border-brand-blue focus:ring-brand-blue"><option>&lt;$10K</option><option>$10–50K</option><option>$50–100K</option><option>$100K+</option></select></div>
+              <div><label for="timeline" class="block text-sm font-medium">Timeline</label><select id="timeline" name="timeline" class="mt-1 w-full rounded-md border border-gray-300 focus:border-brand-blue focus:ring-brand-blue"><option>Urgent (within 1 week)</option><option>1–2 weeks</option><option>1 month</option><option>Planning phase</option></select></div>
+              <div><label for="location" class="block text-sm font-medium">Location</label><select id="location" name="location" class="mt-1 w-full rounded-md border border-gray-300 focus:border-brand-blue focus:ring-brand-blue"><option>South Florida</option><option>Caribbean</option><option>Central America</option><option>Latin America</option><option>Other</option></select></div>
+              <div class="sm:col-span-2"><label for="description" class="block text-sm font-medium">Project Description</label><textarea id="description" name="description" rows="4" class="mt-1 w-full rounded-md border border-gray-300 focus:border-brand-blue focus:ring-brand-blue"></textarea></div>
+              <div class="sm:col-span-2"><label for="questions" class="block text-sm font-medium">Any Design Questions? (optional)</label><textarea id="questions" name="questions" rows="3" class="mt-1 w-full rounded-md border border-gray-300 focus:border-brand-blue focus:ring-brand-blue"></textarea></div>
+              <div><label for="ref" class="block text-sm font-medium">How did you hear about us?</label><select id="ref" name="ref" class="mt-1 w-full rounded-md border border-gray-300 focus:border-brand-blue focus:ring-brand-blue"><option>Referral</option><option>Google</option><option>LinkedIn</option><option>Past relationship</option><option>Other</option></select></div>
+            </div>
+            <div class="mt-6 flex items-center justify-end">
+              <button type="submit" class="rounded-md bg-brand-green px-5 py-2 text-sm font-semibold text-white hover:bg-emerald-600">Send Project Details</button>
+            </div>
+            <p id="postSubmit" class="sr-only">Thanks! We'll review your project and get back to you within 24 hours.</p>
+            <input type="text" name="website" class="hidden" tabindex="-1" autocomplete="off" />
+          </form>
+          <p id="thanks" class="hidden mt-6 rounded-md bg-green-50 p-4 text-green-800">Thanks! We'll review your project and get back to you within 24 hours.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer lang="en" />
+  <WhatsAppButton lang="en" />
+</Base>
+
+<script is:inline>
+  const form = document.getElementById('leadForm');
+  const thanks = document.getElementById('thanks');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const params = new URLSearchParams();
+    fd.forEach((v, k) => params.append(k, String(v)));
+    if ((fd.get('website') || '').toString().trim() !== '') { return; }
+    const endpoint = form.getAttribute('data-endpoint') || '';
+    try {
+      if (endpoint) {
+        await fetch(endpoint, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }, body: params.toString() });
+      } else {
+        const subject = encodeURIComponent('New project lead');
+        const body = encodeURIComponent(Array.from(fd.entries()).map(([k,v]) => `${k}: ${v}`).join('\n'));
+        window.location.href = `mailto:connie@connietech.com?subject=${subject}&body=${body}`;
+      }
+    } catch (err) { console.error(err); }
+    finally {
+      form.classList.add('hidden');
+      thanks.classList.remove('hidden');
+    }
+  });
+</script>

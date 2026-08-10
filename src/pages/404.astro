@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<Base lang="en" title="Page Not Found — Connietech" description="The page you're looking for doesn’t exist.">
+  <Header lang="en" />
+  <main class="min-h-[50vh] flex items-center justify-center px-4">
+    <div class="text-center">
+      <h1 class="text-5xl font-black">404</h1>
+      <p class="mt-2 text-gray-600">Page not found</p>
+      <a href="/" class="mt-6 inline-flex items-center justify-center rounded-md bg-brand-blue px-5 py-2 font-semibold text-white hover:bg-blue-700">Go Home</a>
+    </div>
+  </main>
+  <Footer lang="en" />
+</Base>

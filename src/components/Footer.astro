@@ -1,0 +1,52 @@
+---
+const lang = Astro.props.lang ?? 'en';
+const isES = lang === 'es';
+const contactHref = isES ? '/es/contact' : '/contact';
+---
+<footer class="bg-white border-t border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div>
+      <img src="/assets/connietech_logo_wordmark.svg" alt="Connietech" class="h-10 w-auto" />
+      <p class="mt-3 text-sm text-gray-600">Connectivity. Strategy. Results.</p>
+      <p class="mt-3 text-sm text-gray-600">{isES ? 'Ayudamos a integradores en el Sur de Florida, LATAM y el Caribe a escalar con compras inteligentes y acceso a proveedores.' : 'Helping infrastructure integrators across South Florida, LATAM, and the Caribbean scale faster through smart sourcing and vendor access.'}</p>
+    </div>
+    <div>
+      <h3 class="font-semibold">{isES ? 'Enlaces' : 'Quick Links'}</h3>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li><a href={isES ? '/es/' : '/'} class="hover:text-brand-blue">{isES ? 'Inicio' : 'Home'}</a></li>
+        <li><a href={isES ? '/es/#services' : '/#services'} class="hover:text-brand-blue">{isES ? 'Servicios' : 'Services'}</a></li>
+        <li><a href={isES ? '/es/#about' : '/#about'} class="hover:text-brand-blue">{isES ? 'Nosotros' : 'About'}</a></li>
+        <li><a href={isES ? '/es/#faq' : '/#faq'} class="hover:text-brand-blue">FAQs</a></li>
+        <li><a href={contactHref} class="hover:text-brand-blue">{isES ? 'Contacto' : 'Contact'}</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-semibold">{isES ? 'Regiones' : 'Regions'}</h3>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li>{isES ? 'Sur de Florida' : 'South Florida'}</li>
+        <li>{isES ? 'Caribe' : 'Caribbean'}</li>
+        <li>{isES ? 'Centroamérica' : 'Central America'}</li>
+        <li>{isES ? 'Latinoamérica' : 'Latin America'}</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-semibold">{isES ? 'Contacto y redes' : 'Contact & Social'}</h3>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li>Email: <a href="mailto:connie@connietech.com" class="hover:text-brand-blue">connie@connietech.com</a></li>
+        <li>{isES ? 'Teléfono' : 'Phone'}: <a href="tel:+13051234567" class="hover:text-brand-blue">+1 (305) 123‑4567</a></li>
+        <li>{isES ? 'Dirección' : 'Address'}: Miami, Florida, {isES ? 'EE. UU.' : 'USA'}</li>
+        <li><a href="#" class="hover:text-brand-blue">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500">
+      <p>© 2025 Connietech. {isES ? 'Todos los derechos reservados.' : 'All rights reserved.'}</p>
+      <div class="flex items-center gap-4 mt-2 md:mt-0">
+        <a href={isES ? '/es/privacidad' : '/privacy'} class="hover:text-brand-blue">{isES ? 'Privacidad' : 'Privacy Policy'}</a>
+        <a href={isES ? '/es/terminos' : '/terms'} class="hover:text-brand-blue">{isES ? 'Términos' : 'Terms of Service'}</a>
+        <a href={contactHref} class="hover:text-brand-blue">{isES ? 'Contacto' : 'Contact'}</a>
+      </div>
+    </div>
+  </div>
+</footer>

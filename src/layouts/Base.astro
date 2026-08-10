@@ -1,0 +1,33 @@
+---
+import '../styles/global.css';
+export interface Props {
+  lang?: string;
+  title?: string;
+  description?: string;
+  url?: string;
+}
+const { lang = 'en', title = 'Connietech — Sourcing Partner for Infrastructure Integrators', description = '48‑hour sourcing, vendor access, and infrastructure expertise for South Florida, LATAM & Caribbean.', url = 'https://connietech.com/' } = Astro.props as Props;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/CERN_Computer_Center_02.jpg/1200px-CERN_Computer_Center_02.jpg" />
+    <meta name="theme-color" content="#0052CC" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss: https://script.google.com https://script.googleusercontent.com;" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+  </head>
+  <body class="font-sans text-brand-dark antialiased">
+    <slot />
+  </body>
+</html>

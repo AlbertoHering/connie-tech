@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="960" height="360" viewBox="0 0 960 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Global Sourcing Coverage — USA, LATAM, China</title>
+  <desc id="desc">Abstract world map with highlighted USA, Latin America, and China regions connected to Connietech.</desc>
+  <defs>
+    <linearGradient id="brand" x1="0" x2="1">
+      <stop offset="0" stop-color="#0052CC"/>
+      <stop offset="0.6" stop-color="#10B981"/>
+      <stop offset="1" stop-color="#FF6B35"/>
+    </linearGradient>
+    <style><![CDATA[
+      .cap{font:600 14px Inter,Arial,Helvetica,sans-serif; fill:#111827}
+      .note{font:500 12px Inter,Arial,Helvetica,sans-serif; fill:#374151}
+      .bubble{fill:#FFFFFF; stroke:#E5E7EB}
+    ]]></style>
+  </defs>
+  <rect width="960" height="360" rx="16" fill="#F9FAFB"/>
+  <!-- Abstract land masses -->
+  <g fill="#E5E7EB" opacity="0.8">
+    <path d="M110 180c40-40 120-60 200-40s120 20 160-10 60-90 140-60 140 100 180 120 30 70-30 90-170 20-250 0-160-40-230-20-150 0-180-20 0-20 10-40z"/>
+  </g>
+  <!-- Connietech center -->
+  <circle cx="480" cy="180" r="8" fill="url(#brand)"/>
+  <text class="cap" x="494" y="184">Connietech</text>
+
+  <!-- USA marker -->
+  <circle cx="250" cy="120" r="6" fill="#0052CC"/>
+  <path d="M250 120 C 300 140, 350 160, 472 178" stroke="#0052CC" stroke-width="2" fill="none" stroke-dasharray="4 4"/>
+  <g class="bubble" transform="translate(160,60)">
+    <rect x="0" y="0" width="90" height="36" rx="8" class="bubble"/>
+    <text class="note" x="12" y="22">USA Vendors</text>
+  </g>
+
+  <!-- LATAM marker -->
+  <circle cx="330" cy="220" r="6" fill="#10B981"/>
+  <path d="M330 220 C 380 210, 420 196, 472 186" stroke="#10B981" stroke-width="2" fill="none" stroke-dasharray="4 4"/>
+  <g transform="translate(230,240)">
+    <rect x="0" y="0" width="120" height="36" rx="8" class="bubble"/>
+    <text class="note" x="12" y="22">LATAM Distributors</text>
+  </g>
+
+  <!-- China marker -->
+  <circle cx="710" cy="150" r="6" fill="#FF6B35"/>
+  <path d="M710 150 C 640 160, 560 174, 488 180" stroke="#FF6B35" stroke-width="2" fill="none" stroke-dasharray="4 4"/>
+  <g transform="translate(740,100)">
+    <rect x="0" y="0" width="95" height="36" rx="8" class="bubble"/>
+    <text class="note" x="12" y="22">China Vendors</text>
+  </g>
+</svg>

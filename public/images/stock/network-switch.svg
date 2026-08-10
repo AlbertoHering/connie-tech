@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1600" height="900" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder — Network Switch</title>
+  <desc id="desc">Replace with ethernet switch ports detail.</desc>
+  <defs>
+    <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#0052CC"/><stop offset="0.6" stop-color="#10B981"/><stop offset="1" stop-color="#FF6B35"/></linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#ECFDF5"/>
+  <rect x="200" y="220" width="1200" height="460" rx="20" fill="#FFFFFF" stroke="#E5E7EB"/>
+  <text x="800" y="440" text-anchor="middle" font-family="Inter, Arial" font-size="28" font-weight="700" fill="#1F2937">NETWORK SWITCH — PLACEHOLDER</text>
+  <rect x="200" y="720" width="1200" height="8" rx="4" fill="url(#g)"/>
+</svg>

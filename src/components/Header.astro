@@ -1,0 +1,53 @@
+---
+const lang = Astro.props.lang ?? 'en';
+const onHome = Astro.props.onHome ?? false;
+const isES = lang === 'es';
+const homeHref = isES ? '/es/' : '/';
+const contactHref = isES ? '/es/contact' : '/contact';
+const switchHref = isES ? '/' : '/es/';
+const switchLabel = isES ? 'EN' : 'ES';
+const ctaLabel = isES ? 'Describe tu proyecto' : 'Describe Your Project';
+const base = isES ? '/es/' : '/';
+const servicesHref = onHome ? '#services' : `${base}#services`;
+const aboutHref = onHome ? '#about' : `${base}#about`;
+const faqHref = onHome ? '#faq' : `${base}#faq`;
+---
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href={homeHref} class="flex items-center gap-3" aria-label={isES ? 'Inicio Connietech' : 'Connietech home'}>
+        <img src="/assets/connietech_logo_wordmark.svg" alt="Connietech" class="h-9 w-auto" />
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-[15px]">
+        <a href={servicesHref} class="hover:text-brand-blue">{isES ? 'Servicios' : 'Services'}</a>
+        <a href={aboutHref} class="hover:text-brand-blue">{isES ? 'Nosotros' : 'About'}</a>
+        <a href={faqHref} class="hover:text-brand-blue">FAQs</a>
+        <a href={contactHref} class="hover:text-brand-blue">{isES ? 'Contacto' : 'Contact'}</a>
+        <a href={switchHref} class="text-sm px-2 py-1 rounded hover:bg-brand-light" aria-label={isES ? 'Cambiar a inglés' : 'Switch to Spanish'}>{switchLabel}</a>
+        <a href={`${contactHref}#project`} class="ml-2 inline-flex items-center justify-center rounded-md bg-brand-green px-4 py-2 font-semibold text-white shadow hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-green">{ctaLabel}</a>
+      </nav>
+      <button id="menuBtn" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-brand-dark hover:bg-brand-light" aria-label={isES ? 'Abrir menú' : 'Open menu'}>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="md:hidden hidden border-t border-gray-200 bg-white">
+    <div class="px-4 py-3 space-y-2">
+      <a href={servicesHref} class="block py-2">{isES ? 'Servicios' : 'Services'}</a>
+      <a href={aboutHref} class="block py-2">{isES ? 'Nosotros' : 'About'}</a>
+      <a href={faqHref} class="block py-2">FAQs</a>
+      <a href={contactHref} class="block py-2">{isES ? 'Contacto' : 'Contact'}</a>
+      <div class="flex items-center gap-3 pt-2">
+        <a href={switchHref} class="text-sm px-2 py-1 rounded hover:bg-brand-light">{switchLabel}</a>
+        <a href={`${contactHref}#project`} class="inline-flex items-center justify-center rounded-md bg-brand-green px-4 py-2 font-semibold text-white shadow hover:bg-emerald-600">{ctaLabel}</a>
+      </div>
+    </div>
+  </div>
+  <script is:inline>
+    document.getElementById('menuBtn')?.addEventListener('click', () => {
+      document.getElementById('mobileMenu')?.classList.toggle('hidden');
+    });
+  </script>
+</header>

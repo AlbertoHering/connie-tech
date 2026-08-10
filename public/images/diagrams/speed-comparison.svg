@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="960" height="200" viewBox="0 0 960 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Speed Comparison — 48 Hours vs 2 Weeks</title>
+  <desc id="desc">Visual comparison of Connietech 48-hour standard vs typical 2 weeks timeline.</desc>
+  <defs>
+    <linearGradient id="brand" x1="0" x2="1">
+      <stop offset="0" stop-color="#0052CC"/>
+      <stop offset="0.6" stop-color="#10B981"/>
+      <stop offset="1" stop-color="#FF6B35"/>
+    </linearGradient>
+    <style><![CDATA[
+      .lbl{font:700 14px Inter,Arial,Helvetica,sans-serif; fill:#111827}
+      .sub{font:500 12px Inter,Arial,Helvetica,sans-serif; fill:#6B7280}
+    ]]></style>
+  </defs>
+  <rect width="960" height="200" rx="16" fill="#FFFFFF"/>
+  <!-- Typical timeline -->
+  <g transform="translate(40,40)">
+    <text class="lbl" x="0" y="-10">Typical</text>
+    <rect x="0" y="0" width="600" height="16" rx="8" fill="#E5E7EB"/>
+    <text class="sub" x="0" y="40">~2 weeks</text>
+  </g>
+  <!-- Connietech timeline -->
+  <g transform="translate(40,120)">
+    <text class="lbl" x="0" y="-10">Connietech</text>
+    <rect x="0" y="0" width="240" height="16" rx="8" fill="url(#brand)"/>
+    <text class="sub" x="0" y="40">48 hours</text>
+  </g>
+</svg>

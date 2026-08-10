@@ -1,0 +1,5 @@
+# Copy this file to .env and paste your public forms endpoint
+# PUBLIC_FORMS_ENDPOINT is exposed at build time and used by the contact forms.
+# Example (Google Apps Script Web App URL):
+# PUBLIC_FORMS_ENDPOINT=https://script.google.com/macros/s/AKfycbx.../exec
+PUBLIC_FORMS_ENDPOINT=

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="520" height="96" viewBox="0 0 520 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Connietech Wordmark</title>
+  <desc id="desc">Interim Connietech wordmark for production. Primary blue text with gradient accent bar. Not final brand logo.</desc>
+  <defs>
+    <linearGradient id="brandGradient" x1="0" y1="0" x2="520" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0052CC"/>
+      <stop offset="0.58" stop-color="#10B981"/>
+      <stop offset="1" stop-color="#FF6B35"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="6" width="520" height="8" rx="4" fill="url(#brandGradient)"/>
+  <rect x="8" y="28" width="40" height="40" rx="10" fill="url(#brandGradient)"/>
+  <path d="M36 48c0-6.627-5.373-12-12-12s-12 5.373-12 12 5.373 12 12 12c3.314 0 6.313-1.343 8.485-3.515" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <g font-family="Inter, Arial Black, Impact, Segoe UI, sans-serif" font-weight="900" font-size="36" fill="#0052CC" letter-spacing="0.5">
+    <text x="60" y="58" style="text-transform:uppercase">Connietech</text>
+  </g>
+  <g font-family="Inter, Arial, Helvetica, sans-serif" font-weight="500" font-size="14" fill="#1F2937" opacity="0.9">
+    <text x="60" y="80">Connectivity. Strategy. Results.</text>
+  </g>
+</svg>
