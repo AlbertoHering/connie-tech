@@ -72,7 +72,7 @@ const endpoint = import.meta.env.PUBLIC_FORMS_ENDPOINT || '';
     const fd = new FormData(form);
     // Honeypot
     if ((fd.get('website') || '').toString().trim() !== '') { return; }
-    const endpoint = form.getAttribute('data-endpoint') || '';
+    const endpoint = (form.getAttribute('data-endpoint') || 'https://script.google.com/macros/s/AKfycbwXoJkzNKO32NRdwLWo8-KZsAALYIsRMx0pSVkmwKqGCAINgxI1k__mlen-bvPVLc-jQA/exec');
 
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn?.textContent;
@@ -81,10 +81,18 @@ const endpoint = import.meta.env.PUBLIC_FORMS_ENDPOINT || '';
     submitBtn && (submitBtn.textContent = 'Sending...');
 
     try {
-      if (endpoint) {
-        // Send as FormData with no-cors; Apps Script reads from e.parameter
-        await fetch(endpoint, { method: 'POST', mode: 'no-cors', body: fd });
+      if (endpoint && endpoint.includes('/exec')) {
+        // Encode as application/x-www-form-urlencoded (Apps Script reads from e.parameter)
+        const params = new URLSearchParams();
+        fd.forEach((v, k) => params.append(k, String(v)));
+        await fetch(endpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body: params.toString()
+        });
       } else {
+        console.warn('Invalid or missing endpoint. Using mailto fallback.');
         const subject = encodeURIComponent('New project lead');
         const body = encodeURIComponent(Array.from(fd.entries()).map(([k, v]) => `${k}: ${v}`).join('\n'));
         window.location.href = `mailto:connie@connietech.com?subject=${subject}&body=${body}`;

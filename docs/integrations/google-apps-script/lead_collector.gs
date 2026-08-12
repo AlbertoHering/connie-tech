@@ -13,12 +13,19 @@
  */
 
 const SHEET_ID = 'PASTE_YOUR_SHEET_ID';
+const SHEET_NAME = 'Sheet1'; // change if needed
 const NOTIFY_EMAIL = 'connie@connietech.com';
 
 function doPost(e) {
   try {
-    const data = e.parameter || {};
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getActiveSheet();
+    // Support both form-urlencoded (recommended) and JSON bodies
+    let data = e.parameter || {};
+    if ((!data || Object.keys(data).length === 0) && e.postData?.type === 'application/json') {
+      data = JSON.parse(e.postData.contents || '{}');
+    }
+
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+    const sheet = ss.getSheetByName(SHEET_NAME) || ss.getActiveSheet();
     const row = [
       new Date(),
       data.name || '',
@@ -35,13 +42,32 @@ function doPost(e) {
     ];
     sheet.appendRow(row);
 
-    // Send notification email
-    const subject = 'New Connietech Lead';
-    const body = Object.keys(data).map(k => `${k}: ${data[k]}`).join('\n');
-    MailApp.sendEmail(NOTIFY_EMAIL, subject, body);
+    // Send notification email (optional)
+    if (NOTIFY_EMAIL) {
+      const subject = 'New Connietech Lead';
+      const body = Object.keys(data).map(k => `${k}: ${data[k]}`).join('\n');
+      MailApp.sendEmail(NOTIFY_EMAIL, subject, body);
+    }
 
-    return ContentService.createTextOutput('OK').setMimeType(ContentService.MimeType.TEXT);
+    const out = ContentService.createTextOutput(JSON.stringify({ ok: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+    out.setHeader('Access-Control-Allow-Origin', '*');
+    out.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    out.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return out;
   } catch (err) {
-    return ContentService.createTextOutput('ERR').setMimeType(ContentService.MimeType.TEXT);
+    const out = ContentService.createTextOutput(JSON.stringify({ ok: false, error: String(err) }))
+      .setMimeType(ContentService.MimeType.JSON);
+    out.setHeader('Access-Control-Allow-Origin', '*');
+    return out;
   }
+}
+
+function doOptions() {
+  const out = ContentService.createTextOutput('')
+    .setMimeType(ContentService.MimeType.TEXT);
+  out.setHeader('Access-Control-Allow-Origin', '*');
+  out.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  out.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  return out;
 }

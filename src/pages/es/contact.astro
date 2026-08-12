@@ -1,4 +1,4 @@
----
+-/--
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -81,10 +81,18 @@ const endpoint = import.meta.env.PUBLIC_FORMS_ENDPOINT || '';
     submitBtn && (submitBtn.textContent = 'Enviando...');
 
     try {
-      if (endpoint) {
-        // Enviar como FormData con no-cors; Apps Script lee desde e.parameter
-        await fetch(endpoint, { method: 'POST', mode: 'no-cors', body: fd });
+      if (endpoint && endpoint.includes('/exec')) {
+        // Codificar como application/x-www-form-urlencoded (Apps Script lee desde e.parameter)
+        const params = new URLSearchParams();
+        fd.forEach((v, k) => params.append(k, String(v)));
+        await fetch(endpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body: params.toString()
+        });
       } else {
+        console.warn('Endpoint inválido o ausente. Usando mailto como alternativa.');
         const subject = encodeURIComponent('Nuevo lead de proyecto');
         const body = encodeURIComponent(Array.from(fd.entries()).map(([k, v]) => `${k}: ${v}`).join('\n'));
         window.location.href = `mailto:connie@connietech.com?subject=${subject}&body=${body}`;
