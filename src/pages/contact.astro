@@ -70,20 +70,31 @@ const endpoint = import.meta.env.PUBLIC_FORMS_ENDPOINT || '';
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const fd = new FormData(form);
-    const params = new URLSearchParams();
-    fd.forEach((v, k) => params.append(k, String(v)));
+    // Honeypot
     if ((fd.get('website') || '').toString().trim() !== '') { return; }
     const endpoint = form.getAttribute('data-endpoint') || '';
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn?.textContent;
+    submitBtn?.setAttribute('disabled', 'true');
+    submitBtn?.classList.add('opacity-60', 'cursor-not-allowed');
+    submitBtn && (submitBtn.textContent = 'Sending...');
+
     try {
       if (endpoint) {
-        await fetch(endpoint, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }, body: params.toString() });
+        // Send as FormData with no-cors; Apps Script reads from e.parameter
+        await fetch(endpoint, { method: 'POST', mode: 'no-cors', body: fd });
       } else {
         const subject = encodeURIComponent('New project lead');
-        const body = encodeURIComponent(Array.from(fd.entries()).map(([k,v]) => `${k}: ${v}`).join('\n'));
+        const body = encodeURIComponent(Array.from(fd.entries()).map(([k, v]) => `${k}: ${v}`).join('\n'));
         window.location.href = `mailto:connie@connietech.com?subject=${subject}&body=${body}`;
       }
-    } catch (err) { console.error(err); }
-    finally {
+    } catch (err) {
+      console.error(err);
+    } finally {
+      submitBtn?.removeAttribute('disabled');
+      submitBtn?.classList.remove('opacity-60', 'cursor-not-allowed');
+      submitBtn && originalText && (submitBtn.textContent = originalText);
       form.classList.add('hidden');
       thanks.classList.remove('hidden');
     }
