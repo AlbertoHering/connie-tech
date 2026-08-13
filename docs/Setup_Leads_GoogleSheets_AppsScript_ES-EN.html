@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Connietech — Guía de configuración Google Sheets + Apps Script (ES/EN)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --brand:#0052CC; --text:#111827; --muted:#4B5563; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--text); line-height: 1.5; margin: 40px; }
+    header { border-bottom: 3px solid var(--brand); margin-bottom: 24px; padding-bottom: 8px; }
+    h1 { font-size: 28px; margin: 0; }
+    h2 { font-size: 22px; margin-top: 28px; margin-bottom: 8px; color: var(--brand); }
+    h3 { font-size: 18px; margin-top: 20px; margin-bottom: 6px; }
+    p, li { font-size: 14px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 13px; }
+    pre { background:#f8fafc; border:1px solid #e5e7eb; border-radius:8px; padding:14px; overflow:auto; }
+    .muted { color: var(--muted); }
+    .box { border:1px solid #e5e7eb; border-radius:10px; padding:16px; background:#fff; }
+    .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:18px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .kbd { border:1px solid #cbd5e1; border-bottom-width:2px; padding:1px 5px; border-radius:6px; background:#f8fafc; }
+    @media print { a[href]:after { content:" (" attr(href) ")"; font-size: 12px; color:#6b7280; } body { margin: 12mm; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Guía de configuración: Google Sheets + Apps Script (ES / EN)</h1>
+    <p class="muted">Connietech — Contact/Leads Collector. Esta guía incluye los nombres de menú en español e inglés.</p>
+  </header>
+
+  <section class="box">
+    <h2>Resumen</h2>
+    <ul>
+      <li>SPREADSHEET_ID (SHEET_ID): <code class="mono">1dfsIlSTMfm6Xae6TVZ3XV0HgEI1d7phrTMuW8LleMMo</code></li>
+      <li>Sheet / Pestaña (SHEET_NAME): <code class="mono">Leads</code></li>
+      <li>Web App URL (PUBLIC_FORMS_ENDPOINT): <code class="mono">https://script.google.com/macros/s/AKfycbygdotVjIcoPyAbjPYh2SXmF05Lv-u32GmdbL-qArnm94p_R_89VMmA2dtILCDLOCQO2g/exec</code></li>
+      <li>Correo de notificación (NOTIFY_EMAIL): <code class="mono">connie@connietech.com</code></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>1) Crear la Hoja (Sheet) en Google Sheets</h2>
+    <ol>
+      <li>Abre Google Drive y crea una hoja:
+        <br>— Español: <b>Nuevo</b> &gt; <b>Hojas de cálculo de Google</b>
+        <br>— English: <b>New</b> &gt; <b>Google Sheets</b>
+      </li>
+      <li>Renómbrala a <b>Leads</b>:
+        <br>— Español: <b>Archivo</b> &gt; <b>Cambiar nombre</b>
+        <br>— English: <b>File</b> &gt; <b>Rename</b>
+      </li>
+      <li>En la primera fila (A1..L1), escribe estos encabezados exactamente en este orden:
+        <div class="box" style="margin-top:8px"><code>Timestamp | Name | Company | Email | Phone | Project Type | Budget | Timeline | Location | Description | Questions | How Heard</code></div>
+        <p class="muted">Nota: Los encabezados son solo etiquetas visuales. El script escribe por posición (appendRow), por lo que importa el orden de columnas.</p>
+      </li>
+      <li>Verifica el nombre de la pestaña (tab): debe ser <b>Leads</b>.
+        <br>— Español: clic derecho en la pestaña &gt; <b>Cambiar nombre</b>
+        <br>— English: right‑click the sheet tab &gt; <b>Rename</b>
+      </li>
+      <li>Obtén el <b>SPREADSHEET_ID</b> desde la URL:
+        <br>https://docs.google.com/spreadsheets/d/<b class="mono">1dfsIlSTMfm6Xae6TVZ3XV0HgEI1d7phrTMuW8LleMMo</b>/edit
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>2) Crear el Apps Script vinculado (Linked Apps Script)</h2>
+    <ol>
+      <li>Desde la hoja, abre el editor de script:
+        <br>— Español: <b>Extensiones</b> &gt; <b>Apps Script</b>
+        <br>— English: <b>Extensions</b> &gt; <b>Apps Script</b>
+      </li>
+      <li>En el editor:
+        <ul>
+          <li>Elimina <code>myFunction</code> si existe.</li>
+          <li>Crea el archivo <b>Code.gs</b> si no existe: <i>+ New file</i> &gt; <i>Script</i>.</li>
+          <li>Pega el siguiente código y AJUSTA las constantes:</li>
+        </ul>
+        <pre><code>const SHEET_ID = '1dfsIlSTMfm6Xae6TVZ3XV0HgEI1d7phrTMuW8LleMMo'; // tu hoja
+const SHEET_NAME = 'Leads';                        // nombre exacto de la pestaña
+const NOTIFY_EMAIL = 'connie@connietech.com';      // correo de notificación (opcional)
+
+function doPost(e) {
+  try {
+    // Acepta form-urlencoded (lo que envía tu sitio) y JSON (por si pruebas con Postman)
+    let data = e.parameter || {};
+    if ((!data || Object.keys(data).length === 0) &amp;&amp; e.postData &amp;&amp; e.postData.type === 'application/json') {
+      data = JSON.parse(e.postData.contents || '{}');
+    }
+
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+    const sheet = ss.getSheetByName(SHEET_NAME) || ss.getActiveSheet();
+
+    sheet.appendRow([
+      new Date(),
+      data.name || '',
+      data.company || '',
+      data.email || '',
+      data.phone || '',
+      data.type || '',
+      data.budget || '',
+      data.timeline || '',
+      data.location || '',
+      data.description || '',
+      data.questions || '',
+      data.ref || ''
+    ]);
+
+    if (NOTIFY_EMAIL) {
+      const subject = 'New Connietech Lead';
+      const body = Object.keys(data).map(k =&gt; `${k}: ${data[k]}`).join('\n');
+      MailApp.sendEmail(NOTIFY_EMAIL, subject, body);
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: true }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ ok: false, error: String(err) }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// Opcional: para herramientas que envíen OPTIONS
+function doOptions() {
+  return ContentService.createTextOutput('');
+}
+</code></pre>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>3) Desplegar como Web App (Deploy Web App)</h2>
+    <ol>
+      <li>Haz clic en <b>Implementar</b> (Deploy) &gt; <b>Nueva implementación</b> (New deployment).</li>
+      <li>En <b>Seleccionar tipo</b> (Select type), elige <b>Aplicación web</b> (Web app).</li>
+      <li>Rellena:
+        <ul>
+          <li><b>Descripción</b> (Description): v1</li>
+          <li><b>Ejecutar como</b> (Execute as): <b>Yo</b> (Me)</li>
+          <li><b>Quién tiene acceso</b> (Who has access): <b>Cualquiera</b> (Anyone)</li>
+        </ul>
+      </li>
+      <li>Haz clic en <b>Implementar</b> (Deploy) y luego en <b>Revisar permisos</b> (Review permissions) para aceptar.</li>
+      <li>Copia la URL que termina en <b>/exec</b>. Esta será tu endpoint público.</li>
+      <li>Para Connietech, el endpoint actual es:
+        <div class="box"><code>https://script.google.com/macros/s/AKfycbygdotVjIcoPyAbjPYh2SXmF05Lv-u32GmdbL-qArnm94p_R_89VMmA2dtILCDLOCQO2g/exec</code></div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>4) Prueba directa del endpoint (Testing the endpoint)</h2>
+    <div class="grid-2">
+      <div class="box">
+        <h3>macOS / Linux (bash/zsh)</h3>
+        <pre><code>U="https://script.google.com/macros/s/AKfycbygdotVjIcoPyAbjPYh2SXmF05Lv-u32GmdbL-qArnm94p_R_89VMmA2dtILCDLOCQO2g/exec"
+# Form-urlencoded (recomendado para Apps Script con e.parameter)
+curl -i -sS -X POST \
+  --data-urlencode "name=Test" \
+  --data-urlencode "email=test@example.com" \
+  --data-urlencode "company=ACME" \
+  "$U"
+</code></pre>
+      </div>
+      <div class="box">
+        <h3>Windows (PowerShell)</h3>
+        <pre><code>$u = "https://script.google.com/macros/s/AKfycbygdotVjIcoPyAbjPYh2SXmF05Lv-u32GmdbL-qArnm94p_R_89VMmA2dtILCDLOCQO2g/exec"
+$body = @{ name="Test"; email="test@example.com"; company="ACME" }
+Invoke-WebRequest -Method POST -Uri $u -Body $body
+</code></pre>
+      </div>
+    </div>
+    <p>Esperado: se agrega una fila nueva en la pestaña <b>Leads</b> y, si <code>NOTIFY_EMAIL</code> está configurado, llega un correo a <b>connie@connietech.com</b>.</p>
+    <p>Si no funciona: en el editor de Apps Script, abre <b>Ejecuciones</b> (Executions) y revisa el error exacto.</p>
+  </section>
+
+  <section>
+    <h2>5) Conectar el sitio Astro (Connect Astro site)</h2>
+    <ol>
+      <li>Define la variable de entorno en tu plataforma (Environment variable):
+        <div class="box"><code>PUBLIC_FORMS_ENDPOINT=https://script.google.com/macros/s/AKfycbygdotVjIcoPyAbjPYh2SXmF05Lv-u32GmdbL-qArnm94p_R_89VMmA2dtILCDLOCQO2g/exec</code></div>
+      </li>
+      <li>Vuelve a desplegar (redeploy) el sitio.</li>
+      <li>Verificación rápida en el navegador:
+        <ul>
+          <li>Abrir consola (DevTools) y ejecutar:<br>
+            <code>document.getElementById('leadForm').dataset.endpoint</code>
+          </li>
+          <li>Debe devolver la URL anterior que termina en <b>/exec</b>.</li>
+          <li>Envía el formulario; en Network verás el POST a <i>script.google.com</i> (respuesta "opaque" es normal con <code>no-cors</code>).</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>6) Solución de problemas (Troubleshooting)</h2>
+    <ul>
+      <li><b>"No se encontró la función doPost"</b> (Script function doPost not found): estás usando un despliegue antiguo sin doPost. Haz <b>Deploy &gt; New deployment</b> y usa la NUEVA URL <b>/exec</b>.</li>
+      <li><b>403/401 o pide iniciar sesión</b>: <b>Who has access</b> no está en <b>Anyone</b> o estás usando <b>/dev</b>. Vuelve a desplegar y usa <b>/exec</b>.</li>
+      <li><b>No se insertan filas</b>: <code>SHEET_ID</code> o <code>SHEET_NAME</code> incorrectos. Verifica el ID (empieza con "1...") y que la pestaña se llame exactamente <b>Leads</b>.</li>
+      <li><b>No llega el correo</b>: revisa <code>NOTIFY_EMAIL</code>, carpeta Spam y límites de MailApp.</li>
+      <li><b>CORS</b>: Apps Script no permite añadir headers CORS con ContentService; por eso el sitio usa <code>fetch</code> con <code>mode:'no-cors'</code> y no lee la respuesta. El envío llega igualmente.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>7) Exportar a PDF (Export to PDF)</h2>
+    <p>
+      Abre este archivo en el navegador y usa <span class="kbd">Ctrl</span>+<span class="kbd">P</span> (Windows/Linux) o <span class="kbd">⌘</span>+<span class="kbd">P</span> (macOS) &gt; <b>Guardar como PDF</b> (Save as PDF).
+      En <b>Más ajustes</b> (More settings), activa <b>Fondos</b> (Background graphics) si quieres conservar estilos.
+    </p>
+  </section>
+
+  <footer class="muted" style="margin-top:40px">© 2025 Connietech — Setup Guide</footer>
+</body>
+</html>
