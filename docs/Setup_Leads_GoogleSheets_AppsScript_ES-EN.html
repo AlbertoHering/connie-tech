@@ -34,7 +34,7 @@
       <li>SPREADSHEET_ID (SHEET_ID): <code class="mono">1dfsIlSTMfm6Xae6TVZ3XV0HgEI1d7phrTMuW8LleMMo</code></li>
       <li>Sheet / Pestaña (SHEET_NAME): <code class="mono">Leads</code></li>
       <li>Web App URL (PUBLIC_FORMS_ENDPOINT): <code class="mono">https://script.google.com/macros/s/AKfycbygdotVjIcoPyAbjPYh2SXmF05Lv-u32GmdbL-qArnm94p_R_89VMmA2dtILCDLOCQO2g/exec</code></li>
-      <li>Correo de notificación (NOTIFY_EMAIL): <code class="mono">connie@connietech.com</code></li>
+      <li>Correo de notificación (NOTIFY_EMAIL): <code class="mono">constanza.andrade@connie-tech.com</code></li>
     </ul>
   </section>
 
@@ -78,7 +78,7 @@
         </ul>
         <pre><code>const SHEET_ID = '1dfsIlSTMfm6Xae6TVZ3XV0HgEI1d7phrTMuW8LleMMo'; // tu hoja
 const SHEET_NAME = 'Leads';                        // nombre exacto de la pestaña
-const NOTIFY_EMAIL = 'connie@connietech.com';      // correo de notificación (opcional)
+const NOTIFY_EMAIL = 'constanza.andrade@connie-tech.com';      // correo de notificación (opcional)
 
 function doPost(e) {
   try {
@@ -173,7 +173,7 @@ Invoke-WebRequest -Method POST -Uri $u -Body $body
 </code></pre>
       </div>
     </div>
-    <p>Esperado: se agrega una fila nueva en la pestaña <b>Leads</b> y, si <code>NOTIFY_EMAIL</code> está configurado, llega un correo a <b>connie@connietech.com</b>.</p>
+    <p>Esperado: se agrega una fila nueva en la pestaña <b>Leads</b> y, si <code>NOTIFY_EMAIL</code> está configurado, llega un correo a <b>constanza.andrade@connie-tech.com</b>.</p>
     <p>Si no funciona: en el editor de Apps Script, abre <b>Ejecuciones</b> (Executions) y revisa el error exacto.</p>
   </section>
 

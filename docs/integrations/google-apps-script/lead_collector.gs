@@ -14,7 +14,7 @@
 
 const SHEET_ID = 'PASTE_YOUR_SHEET_ID';
 const SHEET_NAME = 'Sheet1'; // change if needed
-const NOTIFY_EMAIL = 'connie@connietech.com';
+const NOTIFY_EMAIL = 'constanza.andrade@connie-tech.com';
 
 function doPost(e) {
   try {

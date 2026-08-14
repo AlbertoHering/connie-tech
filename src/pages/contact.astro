@@ -6,7 +6,7 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 const title = 'Contact — Connietech';
 const description = 'Tell us about your project. We’ll review and reply within 24 hours.';
 const phone = '+1-786-334-8592';
-const email = 'connie@connietech.com';
+const email = 'constanza.andrade@connie-tech.com';
 const defaultMsg = 'Hi Connietech, I’d like to discuss a project.';
 const wa = `https://wa.me/17863348592?text=${encodeURIComponent(defaultMsg)}`;
 const endpoint = import.meta.env.PUBLIC_FORMS_ENDPOINT || '';
@@ -95,7 +95,7 @@ const endpoint = import.meta.env.PUBLIC_FORMS_ENDPOINT || '';
         console.warn('Invalid or missing endpoint. Using mailto fallback.');
         const subject = encodeURIComponent('New project lead');
         const body = encodeURIComponent(Array.from(fd.entries()).map(([k, v]) => `${k}: ${v}`).join('\n'));
-        window.location.href = `mailto:connie@connietech.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:constanza.andrade@connie-tech.com?subject=${subject}&body=${body}`;
       }
     } catch (err) {
       console.error(err);
